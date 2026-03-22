@@ -133,7 +133,7 @@ export async function updateUserSubscriptionServer(
   const accessToken = await getAccessToken();
   const documentUrl = `${FIRESTORE_BASE_URL}/users/${uid}`;
   const query = new URLSearchParams({
-    updateMask.fieldPaths: "subscription",
+    "updateMask.fieldPaths": "subscription",
   });
 
   if (extras) {
