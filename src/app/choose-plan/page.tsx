@@ -124,12 +124,14 @@ export default function ChoosePlanPage() {
       return;
     }
 
+    const confirmedSessionId = sessionId;
+
     let isCancelled = false;
 
     async function confirmCheckout() {
       try {
         const response = await fetch(
-          `/api/stripe/confirm?session_id=${encodeURIComponent(sessionId)}`,
+          `/api/stripe/confirm?session_id=${encodeURIComponent(confirmedSessionId)}`,
         );
         const data = (await response.json()) as {
           uid?: string;
