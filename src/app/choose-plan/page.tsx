@@ -124,8 +124,8 @@ export default function ChoosePlanPage() {
       return;
     }
 
+    const confirmedUser = currentUser;
     const confirmedSessionId = sessionId;
-
     let isCancelled = false;
 
     async function confirmCheckout() {
@@ -145,11 +145,11 @@ export default function ChoosePlanPage() {
           error?: string;
         };
 
-        if (!response.ok || !data.subscription || data.uid !== currentUser.uid) {
+        if (!response.ok || !data.subscription || data.uid !== confirmedUser.uid) {
           throw new Error(data.error ?? "Unable to verify Stripe checkout.");
         }
 
-        await updateStoredSubscription(currentUser.uid, data.subscription);
+        await updateStoredSubscription(confirmedUser.uid, data.subscription);
         dispatch(updateUserSubscription(data.subscription));
 
         if (!isCancelled) {
